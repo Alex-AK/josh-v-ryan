@@ -220,7 +220,6 @@ footer p {
 
 .character {
   width: 40%;
-  border: 1px solid red;
   padding: 0px;
 }
 
@@ -240,8 +239,9 @@ footer p {
 }
 
 button {
-  width: 40%;
+  width: 100%;
   padding: 10px 20px;
   margin-top: 20px;
-
+  color: white;
+  background: grey;
 }
