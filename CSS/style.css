@@ -185,15 +185,63 @@ img {
   height: auto;
 }
 
+header {
+  text-align: center;
+  padding-top: 20px;
+}
 
 footer {
   display: flex;
   justify-content: center;
   align-items: center;
   width: 100%;
+  position: fixed;
+  bottom: 0;
+  padding-top: 1px solid black;
 }
 
 footer p {
   font-size: 1.2rem;
   padding: 20px;
+
+}
+
+
+/* HERO V VILLIAN STYLES */
+
+.battle-field {
+  padding: 200px 0;
+  width: 50%;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.character {
+  width: 40%;
+  border: 1px solid red;
+  padding: 0px;
+}
+
+#banjo {
+  width: 100px;
+  margin-left: -120px;
+  border: 1px solid red;
+  /* display: none; */
+}
+
+#ginger {
+  border: 1px solid red;
+  width: 160px;
+  margin-right: -120px;
+  z-index: 1;
+  /* display: none; */
+}
+
+button {
+  width: 40%;
+  padding: 10px 20px;
+  margin-top: 20px;
+
 }
