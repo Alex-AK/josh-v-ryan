@@ -2,7 +2,7 @@ function GameObject(gameAttributes) {
   this.createdAt = new Date('November 28, 2018 03:24:00');
   this.dimensions = gameAttributes.dimensions;
   this.destroy = function () {
-    return `${this.name} was removed from the game.`;
+    alert(`${this.name} was removed from the game.`);
   }
 }
 
@@ -13,7 +13,7 @@ function CharacterStats(characterAttibutes) {
   this.healthPoints = characterAttibutes.healthPoints;
   this.name = characterAttibutes.name;
   this.takeDamage = function () {
-    return `${this.name} took damage.`
+    alert(`${this.name}: OUCH!`);
   }
   this.death = function () {
     if (this.healthPoints === 0) {
@@ -34,84 +34,30 @@ function Humanoid(humanoidAttributes) {
 }
 
 
-const mage = new Humanoid({
-  createdAt: new Date(),
-  dimensions: {
-    length: 2,
-    width: 1,
-    height: 1,
-  },
-  healthPoints: 5,
-  name: 'Bruce',
-  team: 'Mage Guild',
-  weapons: [
-    'Staff of Shamalama',
-  ],
-  language: 'Common Tongue',
-});
+const damage = function (opponent) {
+  opponent.takeDamage();
+  --opponent.healthPoints;
+  if (opponent.healthPoints === 0) {
+    opponent.destroy();
+  }
+}
 
-const swordsman = new Humanoid({
-  createdAt: new Date(),
-  dimensions: {
-    length: 2,
-    width: 2,
-    height: 2,
-  },
-  healthPoints: 15,
-  name: 'Sir Mustachio',
-  team: 'The Round Table',
-  weapons: [
-    'Giant Sword',
-    'Shield',
-  ],
-  language: 'Common Tongue',
-});
-
-const archer = new Humanoid({
-  createdAt: new Date(),
-  dimensions: {
-    length: 1,
-    width: 2,
-    height: 4,
-  },
-  healthPoints: 10,
-  name: 'Lilith',
-  team: 'Forest Kingdom',
-  weapons: [
-    'Bow',
-    'Dagger',
-  ],
-  language: 'Elvish',
-});
-
-
-
-
-
-
-// Stretch task: 
-// * Create Villain and Hero constructor functions that inherit from the Humanoid constructor function.
 
 function Villian(villianAttributes) {
   Humanoid.call(this, villianAttributes);
-  this.fireBomb = function (opponent) {
-    console.log(opponent.takeDamage());
-    --opponent.healthPoints;
-    if (opponent.healthPoints === 0) {
-      console.log(opponent.destroy());
-    }
-  }
+  // this.gingerBomb = function (opponent) {
+  //   opponent.takeDamage();
+  //   --opponent.healthPoints;
+  //   if (opponent.healthPoints === 0) {
+  //     opponent.destroy();
+  //   }
+  // }
+  this.gingerBomb = damage(opponent);
 }
 
 function Hero(heroAttributes) {
   Humanoid.call(this, heroAttributes);
-  this.banjo = function (opponent) {
-    console.log(opponent.takeDamage());
-    --opponent.healthPoints;
-    if (opponent.healthPoints === 0) {
-      console.log(opponent.destroy());
-    }
-  }
+  this.banjoBomb = damage(opponent);
 }
 
 const ryan = new Villian({
@@ -121,13 +67,13 @@ const ryan = new Villian({
     width: 2,
     height: 7,
   },
-  healthPoints: 25,
+  healthPoints: 5,
   name: 'Ryan',
-  team: 'Death to Hero',
+  team: 'Death to Josh',
   weapons: [
-    'Fire'
+    'Ginger'
   ],
-  language: 'EvilAF',
+  language: 'SASS',
 });
 
 const josh = new Hero({
@@ -137,20 +83,27 @@ const josh = new Hero({
     width: 2,
     height: 7,
   },
-  healthPoints: 25,
+  healthPoints: 5,
   name: 'Josh',
   team: 'Banjo for Life',
   weapons: [
-    'Fire'
+    'Banjo'
   ],
-  language: 'EvilAF',
+  language: 'LESS',
 });
 
 // =================HTML ELEMENT SELECTORS ====================
 const joshButton = document.getElementById('josh-attack');
 const ryanButton = document.getElementById('ryan-attack');
 
+joshButton.addEventListener('click', function () {
+      //alert attack message
+      //trigger banjo by changing class
+      //decrease ryan's health
+      //alert ryan pain message
+    }
 
 
-// * Give the Hero and Villains different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
-// * Create two new objects, one a villain and one a hero and fight it out with methods!
+
+    // * Give the Hero and Villains different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
+    // * Create two new objects, one a villain and one a hero and fight it out with methods!
