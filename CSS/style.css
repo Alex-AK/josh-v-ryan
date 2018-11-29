@@ -237,13 +237,14 @@ footer p {
   padding: 0px;
 }
 
-#banjo {
+.banjo-on {
   width: 150px;
   margin-left: -50px;
   border: 1px solid red;
+  display: none;
 }
 
-#ginger {
+.ginger-on {
   border: 1px solid red;
   width: 200px;
   margin-right: -70px;

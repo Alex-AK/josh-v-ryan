@@ -34,30 +34,37 @@ function Humanoid(humanoidAttributes) {
 }
 
 
-const damage = function (opponent) {
-  opponent.takeDamage();
-  --opponent.healthPoints;
-  if (opponent.healthPoints === 0) {
-    opponent.destroy();
-  }
-}
+// const damage = function (opponent) {
+//   opponent.takeDamage();
+//   --opponent.healthPoints;
+//   if (opponent.healthPoints === 0) {
+//     opponent.destroy();
+//   }
+// }
 
 
 function Villian(villianAttributes) {
   Humanoid.call(this, villianAttributes);
-  // this.gingerBomb = function (opponent) {
-  //   opponent.takeDamage();
-  //   --opponent.healthPoints;
-  //   if (opponent.healthPoints === 0) {
-  //     opponent.destroy();
-  //   }
-  // }
-  this.gingerBomb = damage(opponent);
+  this.gingerBomb = function (opponent) {
+    opponent.takeDamage();
+    --opponent.healthPoints;
+    if (opponent.healthPoints === 0) {
+      opponent.destroy();
+    }
+  }
+  //this.gingerBomb = damage();
 }
 
 function Hero(heroAttributes) {
   Humanoid.call(this, heroAttributes);
-  this.banjoBomb = damage(opponent);
+  this.banjoBomb = function (opponent) {
+    opponent.takeDamage();
+    --opponent.healthPoints;
+    if (opponent.healthPoints === 0) {
+      opponent.destroy();
+    }
+  }
+  // this.banjoBomb = damage();
 }
 
 const ryan = new Villian({
@@ -93,17 +100,29 @@ const josh = new Hero({
 });
 
 // =================HTML ELEMENT SELECTORS ====================
+
+// button actions 
 const joshButton = document.getElementById('josh-attack');
 const ryanButton = document.getElementById('ryan-attack');
 
+//health bar variables
+let joshHealth = document.getElementById('josh-health');
+let ryanHealth = document.getElementById('ryan-health');
+
+//weapons 
+const banjo = document.getElementById('banjo');
+const ginger = document.getElementById('ginger');
+
+
 joshButton.addEventListener('click', function () {
-      //alert attack message
-      //trigger banjo by changing class
-      //decrease ryan's health
-      //alert ryan pain message
-    }
+  //trigger banjo by changing class
+  banjo.style.display = 'block';
+  //decrease ryan's health
+  ryan.takeDamage();
+  //alert ryan pain message
+});
 
 
 
-    // * Give the Hero and Villains different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
-    // * Create two new objects, one a villain and one a hero and fight it out with methods!
+// * Give the Hero and Villains different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
+// * Create two new objects, one a villain and one a hero and fight it out with methods!
