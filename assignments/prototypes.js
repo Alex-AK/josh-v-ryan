@@ -118,7 +118,9 @@ joshButton.addEventListener('click', function () {
   //trigger banjo by changing class
   banjo.style.display = 'block';
   //decrease ryan's health
-  ryan.takeDamage();
+  josh.banjoBomb(ryan);
+  ryanHealth.textContent = `${ryan.healthPoints}`;
+
   //alert ryan pain message
 });
 
