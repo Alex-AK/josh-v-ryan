@@ -12,7 +12,7 @@ class GameObject {
     this.dimensions = gameAttributes.dimensions;
   }
   destroy() {
-    alert(`${this.name} was removed from the game.`);
+    alert (`${this.name} was removed from the game.`);
   }
 }
 
@@ -37,7 +37,7 @@ class CharacterStats extends GameObject {
     this.name = characterAttibutes.name;
   }
   takeDamage() {
-    alert(`${this.name}: OUCH!`);
+    return (`${this.name} says: OUCH!`);
   }
   death() {
     if (this.healthPoints === 0) {
@@ -96,7 +96,7 @@ class Villain extends Humanoid {
   gingerBomb(opponent) {
     opponent.takeDamage();
     --opponent.healthPoints;
-    if (opponent.healthPoints === 0) {
+    if (opponent.healthPoints <= 0) {
       opponent.destroy();
     }
   }
@@ -119,9 +119,9 @@ class Hero extends Humanoid {
     super(heroAttributes);
   }
   banjoBomb(opponent) {
-    opponent.takeDamage();
+    //opponent.takeDamage();
     --opponent.healthPoints;
-    if (opponent.healthPoints === 0) {
+    if (opponent.healthPoints <= 0) {
       opponent.destroy();
     }// no health conditional statement
   }// banjoBomb
@@ -165,22 +165,22 @@ const josh = new Hero({
 const joshButton = document.getElementById('josh-attack');
 const ryanButton = document.getElementById('ryan-attack');
 
-//health bar variables
+// health bar variables
 let joshHealth = document.getElementById('josh-health');
 let ryanHealth = document.getElementById('ryan-health');
 
-//weapons 
+// weapons 
 const banjo = document.getElementById('banjo');
 const ginger = document.getElementById('ginger');
 
+// dialog box
+const dialogue = document.getElementById('dialogue-box');
 
 joshButton.addEventListener('click', function () {
-  //trigger banjo by changing class
-  banjo.style.display = 'block';
-  //decrease ryan's health
+  banjo.style.opacity = '1';
   josh.banjoBomb(ryan);
-  ryanHealth.textContent = `${ryan.healthPoints}`;
-
+  dialogue.textContent = `${ryan.name}: OUCH!`;
+  ryanHealth.textContent = `${ryan.healthPoints}`;  
   //alert ryan pain message
 });
 
