@@ -1,35 +1,78 @@
-function GameObject(gameAttributes) {
-  this.destroy = function () {
-    alert(`${this.name} was removed from the game.`);
+
+// function GameObject(gameAttributes) {
+//   this.createdAt = new Date('November 28, 2018 03:24:00');
+//   this.dimensions = gameAttributes.dimensions;
+//   this.destroy = function () {
+//     alert(`${this.name} was removed from the game.`);
+//   }
+// }
+
+class GameObject {
+  constructor(gameAttributes) {
+    this.createdAt = new Date('November 28, 2018 03:24:00');
+    this.dimensions = gameAttributes.dimensions;
+  }
+  destroy() {
+    alert (`${this.name} was removed from the game.`);
+
   }
 }
 
+// function CharacterStats(characterAttibutes) {
+//   GameObject.call(this, characterAttibutes);
+//   this.healthPoints = characterAttibutes.healthPoints;
+//   this.name = characterAttibutes.name;
+//   this.takeDamage = function () {
+//     alert(`${this.name}: OUCH!`);
+//   }
+//   this.death = function () {
+//     if (this.healthPoints === 0) {
+//       return `TEST`;
+//     }
+//   }
+// }
 
 
-function CharacterStats(characterAttibutes) {
-  GameObject.call(this, characterAttibutes);
-  this.healthPoints = characterAttibutes.healthPoints;
-  this.name = characterAttibutes.name;
-  this.takeDamage = function () {
-    // alert(`${this.name}: OUCH!`);
+class CharacterStats extends GameObject {
+  constructor(characterAttibutes) {
+    super(characterAttibutes);
+    this.healthPoints = characterAttibutes.healthPoints;
+    this.name = characterAttibutes.name;
   }
-  this.death = function () {
+  takeDamage() {
+    return (`${this.name} says: OUCH!`);
+
+  }
+  death() {
     if (this.healthPoints === 0) {
-      return `TEST`;
+        return `TEST`;
     }
+  }// death()
+}// CharacterStats
+
+// function Humanoid(humanoidAttributes) {
+//   CharacterStats.call(this, humanoidAttributes);
+//   this.team = humanoidAttributes.team;
+//   this.weapons = humanoidAttributes.weapons;
+//   this.language = humanoidAttributes.language;
+//   this.greet = function () {
+//     return `${this.name} offers a greeting in ${this.language}.`
+//   }
+// }
+
+
+class Humanoid extends CharacterStats {
+  constructor(humanoidAttributes) {
+    super(humanoidAttributes);
+    this.team = humanoidAttributes.team;
+    this.weapons = humanoidAttributes.weapons;
+    this.language = humanoidAttributes.language;
+  }
+  greet() {
+    return (`${this.name} offers a greeting in ${this.language}.`);
+
   }
 }
-
-
-function Humanoid(humanoidAttributes) {
-  CharacterStats.call(this, humanoidAttributes);
-  this.team = humanoidAttributes.team;
-  this.weapons = humanoidAttributes.weapons;
-  this.greet = function () {
-    return `${this.name} offers a greeting in ${this.language}.`
-  }
-}
-
 
 // const damage = function (opponent) {
 //   opponent.takeDamage();
@@ -40,39 +83,68 @@ function Humanoid(humanoidAttributes) {
 // }
 
 
-function Villian(villianAttributes) {
-  Humanoid.call(this, villianAttributes);
-  this.gingerBomb = function (opponent) {
+// function Villain(villainAttributes) {
+//   Humanoid.call(this, villainAttributes);
+//   this.gingerBomb = function (opponent) {
+//     opponent.takeDamage();
+//     --opponent.healthPoints;
+//     if (opponent.healthPoints === 0) {
+//       opponent.destroy();
+//     }
+//   }
+//   //this.gingerBomb = damage();
+// }
+
+class Villain extends Humanoid {
+  constructor(villainAttributes) {
+    super(villainAttributes);
+  }
+  gingerBomb(opponent) {
     opponent.takeDamage();
     --opponent.healthPoints;
-    if (opponent.healthPoints === 0) {
+    if (opponent.healthPoints <= 0) {
       opponent.destroy();
     }
   }
-  //this.gingerBomb = damage();
 }
 
-function Hero(heroAttributes) {
-  Humanoid.call(this, heroAttributes);
-  this.banjoBomb = function (opponent) {
-    opponent.takeDamage();
+// function Hero(heroAttributes) {
+//   Humanoid.call(this, heroAttributes);
+//   this.banjoBomb = function (opponent) {
+//     opponent.takeDamage();
+//     --opponent.healthPoints;
+//     if (opponent.healthPoints === 0) {
+//       opponent.destroy();
+//     }
+//   }
+//   // this.banjoBomb = damage();
+// }
+
+class Hero extends Humanoid {
+  constructor(heroAttributes) {
+    super(heroAttributes);
+  }
+  banjoBomb(opponent) {
+    //opponent.takeDamage();
     --opponent.healthPoints;
-    if (opponent.healthPoints === 0) {
+    if (opponent.healthPoints <= 0) {
       opponent.destroy();
+    }// no health conditional statement
+  }// banjoBomb
+}
+
+const ryan = new Villain({
+  createdAt: new Date(),
+  dimensions: {
+    length: 2,
+    width: 2,
+    height: 7,
+  },
       textBox.textContent = "Game Over!";
     }
   }
   // this.banjoBomb = damage();
 }
-
-const ryan = new Villian({
-  healthPoints: 5,
-  name: 'Ryan',
-  team: 'Death to Josh',
-  weapons: [
-    'Ginger'
-  ],
-});
 
 const josh = new Hero({
 
@@ -91,16 +163,24 @@ const joshButton = document.querySelector('#josh-attack');
 const ryanButton = document.querySelector('#ryan-attack');
 const textBox = document.querySelector('#dialog-box')
 
-//health bar variables
+// health bar variables
 let joshHealth = document.getElementById('josh-health');
 let ryanHealth = document.getElementById('ryan-health');
 
-//weapons 
+// weapons 
 const banjo = document.getElementById('banjo');
 const ginger = document.getElementById('ginger');
 
+// dialog box
+const dialogue = document.getElementById('dialogue-box');
 
 joshButton.addEventListener('click', function () {
+  banjo.style.opacity = '1';
+  josh.banjoBomb(ryan);
+  dialogue.textContent = `${ryan.name}: OUCH!`;
+  ryanHealth.textContent = `${ryan.healthPoints}`;  
+  //alert ryan pain message
+
   josh.banjoBomb(ryan);
   ryanHealth.textContent = `${ryan.healthPoints}`;
   textBox.textContent = "Josh hits Ryan for 1 damage.";
@@ -110,24 +190,6 @@ ryanButton.addEventListener('click', function () {
   ryan.gingerBomb(josh);
   joshHealth.textContent = `${josh.healthPoints}`;
 
-});
-
-const showBanjo = document.querySelector('#banjo');
-const showGinger = document.querySelector('#ginger');
-joshButton.addEventListener('mousedown', function () {
-  showBanjo.classList.toggle('toggleMe');
-});
-
-joshButton.addEventListener('mouseup', function () {
-  showBanjo.classList.toggle('toggleMe');
-});
-
-ryanButton.addEventListener('mousedown', function () {
-  showGinger.classList.toggle('toggleMe');
-});
-
-ryanButton.addEventListener('mouseup', function () {
-  showGinger.classList.toggle('toggleMe');
 });
 
 
