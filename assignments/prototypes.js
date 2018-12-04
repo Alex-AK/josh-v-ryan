@@ -1,3 +1,4 @@
+
 // function GameObject(gameAttributes) {
 //   this.createdAt = new Date('November 28, 2018 03:24:00');
 //   this.dimensions = gameAttributes.dimensions;
@@ -13,6 +14,7 @@ class GameObject {
   }
   destroy() {
     alert (`${this.name} was removed from the game.`);
+
   }
 }
 
@@ -30,6 +32,7 @@ class GameObject {
 //   }
 // }
 
+
 class CharacterStats extends GameObject {
   constructor(characterAttibutes) {
     super(characterAttibutes);
@@ -38,6 +41,7 @@ class CharacterStats extends GameObject {
   }
   takeDamage() {
     return (`${this.name} says: OUCH!`);
+
   }
   death() {
     if (this.healthPoints === 0) {
@@ -56,6 +60,7 @@ class CharacterStats extends GameObject {
 //   }
 // }
 
+
 class Humanoid extends CharacterStats {
   constructor(humanoidAttributes) {
     super(humanoidAttributes);
@@ -65,6 +70,7 @@ class Humanoid extends CharacterStats {
   }
   greet() {
     return (`${this.name} offers a greeting in ${this.language}.`);
+
   }
 }
 
@@ -134,36 +140,28 @@ const ryan = new Villain({
     width: 2,
     height: 7,
   },
-  healthPoints: 5,
-  name: 'Ryan',
-  team: 'Death to Josh',
-  weapons: [
-    'Ginger'
-  ],
-  language: 'SASS',
-});
+      textBox.textContent = "Game Over!";
+    }
+  }
+  // this.banjoBomb = damage();
+}
 
 const josh = new Hero({
-  createdAt: new Date(),
-  dimensions: {
-    length: 2,
-    width: 2,
-    height: 7,
-  },
+
   healthPoints: 5,
   name: 'Josh',
   team: 'Banjo for Life',
   weapons: [
     'Banjo'
   ],
-  language: 'LESS',
 });
 
 // =================HTML ELEMENT SELECTORS ====================
 
 // button actions 
-const joshButton = document.getElementById('josh-attack');
-const ryanButton = document.getElementById('ryan-attack');
+const joshButton = document.querySelector('#josh-attack');
+const ryanButton = document.querySelector('#ryan-attack');
+const textBox = document.querySelector('#dialog-box')
 
 // health bar variables
 let joshHealth = document.getElementById('josh-health');
@@ -182,8 +180,17 @@ joshButton.addEventListener('click', function () {
   dialogue.textContent = `${ryan.name}: OUCH!`;
   ryanHealth.textContent = `${ryan.healthPoints}`;  
   //alert ryan pain message
+
+  josh.banjoBomb(ryan);
+  ryanHealth.textContent = `${ryan.healthPoints}`;
+  textBox.textContent = "Josh hits Ryan for 1 damage.";
 });
 
+ryanButton.addEventListener('click', function () {
+  ryan.gingerBomb(josh);
+  joshHealth.textContent = `${josh.healthPoints}`;
+
+});
 
 
 // * Give the Hero and Villains different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
