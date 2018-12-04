@@ -245,7 +245,6 @@ footer p {
 }
 
 .ginger-on {
-  border: 1px solid red;
   width: 200px;
   margin-right: -70px;
   z-index: 1;
@@ -274,4 +273,8 @@ button {
 
 .dialog p {
   font-size: 1.4rem;
+}
+
+.toggleMe {
+  display: block;
 }
